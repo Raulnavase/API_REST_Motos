@@ -10,7 +10,6 @@ app = Flask(__name__)
 app.config['MONGO_URI'] = getenv('MONGO_URI')
 mongo = PyMongo(app)
 
-motos_collection = mongo.db.motos
 
 app.config['MYSQL_HOST'] = getenv('MYSQL_HOST')
 app.config['MYSQL_USER'] = getenv('MYSQL_USER')
@@ -27,6 +26,7 @@ def index():
 
 @app.route('/motos_mongodb')
 def motos_mongodb():
+    motos_collection = mongo.db.motos
     motos_mongodb = motos_collection.find()
     return jsonify(motos_mongodb)
 
@@ -53,4 +53,4 @@ def motos_mysql():
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="0.0.0.0")
